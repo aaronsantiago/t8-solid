@@ -16,6 +16,21 @@ let t8Qwerty = [
   'asdffjjkl',
   'asdffjj',
 ];
+let t10Qwerty = [
+  'asdfghjkl;',
+  'asdfghjkl',
+  'asdfghj',
+];
+let t2Qwerty = [
+  'ffffjjjjjj',
+  'ffffjjjjj',
+  'ffffjjj',
+];
+let lhQwerty = [
+  'qwerttrewq',
+  'asdfggfdsa',
+  'zxcvbbv',
+];
 
 let colemak = [
   'qwfpgjluy',
@@ -45,6 +60,10 @@ let lhColemak = [
 
 qwerty = qwerty.join('');
 t8Qwerty = t8Qwerty.join('');
+t10Qwerty = t10Qwerty.join('');
+t2Qwerty = t2Qwerty.join('');
+lhQwerty = lhQwerty.join('');
+
 colemak = colemak.join('');
 t8Colemak = t8Colemak.join('');
 t10Colemak = t10Colemak.join('');
@@ -52,6 +71,22 @@ t2Colemak = t2Colemak.join('');
 lhColemak = lhColemak.join('');
 
 let mappings = {
+  qwerty8:{
+    base:qwerty,
+    mapping:t8Qwerty
+  },
+  qwerty10:{
+    base:qwerty,
+    mapping:t10Qwerty
+  },
+  qwerty2:{
+    base:qwerty,
+    mapping:t2Qwerty
+  },
+  qwertyLH:{
+    base:qwerty,
+    mapping:lhQwerty
+  },
   colemak8:{
     base:colemak,
     mapping:t8Colemak
@@ -100,11 +135,11 @@ function App() {
   const [t9Words, setT9Words] = createSignal([]);
   const [input, setInput] = createSignal('');
   const [currentSelectedWord, setCurrentSelectedWord] = createSignal(0);
-  const [mapping, setMapping] = createSignal('colemak8');
+  const [mapping, setMapping] = createSignal(Object.keys(mappings)[0]);
 
   onMount(async () => {
     // let wordList = await fetch('/google-10000-english-usa.txt');
-    let wordList = await fetch('/t8-solid/wictionary-100k.txt');
+    let wordList = await fetch('/t8-solid/google-10000-english-usa.txt');
     t9Db = generateT9Db(await wordList.text(), mapping());
   });
 
@@ -144,7 +179,7 @@ function App() {
 
   createEffect(async () => {
     console.log('mapping', mapping());
-    let wordList = await fetch('/t8-solid/wictionary-100k.txt');
+    let wordList = await fetch('/t8-solid/google-10000-english-usa.txt');
     // let wordList = await fetch('/google-10000-english-usa.txt');
     t9Db = generateT9Db(await wordList.text(), mappings[mapping()]);
   });
