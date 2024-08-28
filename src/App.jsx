@@ -104,7 +104,7 @@ function App() {
 
   onMount(async () => {
     // let wordList = await fetch('/google-10000-english-usa.txt');
-    let wordList = await fetch('/wictionary-100k.txt');
+    let wordList = await fetch('/t8-solid/wictionary-100k.txt');
     t9Db = generateT9Db(await wordList.text(), mapping());
   });
 
@@ -144,7 +144,7 @@ function App() {
 
   createEffect(async () => {
     console.log('mapping', mapping());
-    let wordList = await fetch('/wictionary-100k.txt');
+    let wordList = await fetch('/t8-solid/wictionary-100k.txt');
     // let wordList = await fetch('/google-10000-english-usa.txt');
     t9Db = generateT9Db(await wordList.text(), mappings[mapping()]);
   });
