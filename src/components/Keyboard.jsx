@@ -45,24 +45,6 @@ function Keyboard(props) {
   let [t8KeyMapping, setT8KeyMapping] = createSignal({});
   let [sourceKey, setSourceKey] = createSignal(null);
 
-  onMount(() => {
-    for (let i = 0; i < 3; i++) {
-      let row = {
-        keys: [],
-        offset: offsets[i],
-      };
-      for (let j = 0; j < rowLengths[i]; j++) {
-        row.keys.push({
-          keyRow: i,
-          keyCol: j,
-          keyId: i * 10 + j,
-          pressedBy: null,
-        });
-      }
-      setKeyboardRows([...keyboardRows(), row]);
-    }
-  });
-
   function handleClick(e) {
     if (e.target.id === "") {
       return;
@@ -171,6 +153,25 @@ function Keyboard(props) {
     setT8KeyMapping({...preset})
 
   }
+
+  onMount(() => {
+    for (let i = 0; i < 3; i++) {
+      let row = {
+        keys: [],
+        offset: offsets[i],
+      };
+      for (let j = 0; j < rowLengths[i]; j++) {
+        row.keys.push({
+          keyRow: i,
+          keyCol: j,
+          keyId: i * 10 + j,
+          pressedBy: null,
+        });
+      }
+      setKeyboardRows([...keyboardRows(), row]);
+    }
+    handleKeyboardPresetSelection({target: {value: "t8"}});
+  });
 
   return (
     <div>
