@@ -3,7 +3,7 @@ import styles from './App.module.css';
 
 import { generateT9Db } from './logic/t8-engine';
 import { onMount, createSignal, createEffect } from 'solid-js';
-import Keyboard from './components/keyboard';
+import Keyboard from './components/Keyboard';
 
 
 function App() {
